@@ -82,7 +82,8 @@ async def handle_edited_message(_, message):
     await message.reply(f"{message.from_user.mention} edited a message, so I deleted it.")
     await message.delete()
 
-# Add this to your main.py or wherever you initialize your bot
-app.add_handler(filters.command("editmode"), editmode_command)
-app.add_handler(filters.command(["auth", "unauth"]), auth_command)
-app.add_handler(filters.edited_message & filters.text & filters.group, handle_edited_message)
+# Add handlers
+app.add_handler(app.on_message(filters.command("editmode")), editmode_command)
+app.add_handler(app.on_message(filters.command(["auth", "unauth"])), auth_command)
+app.add_handler(app.on_edited_message(filters.text & filters.group), handle_edited_message)
+
